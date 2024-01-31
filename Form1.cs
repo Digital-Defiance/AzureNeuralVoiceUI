@@ -17,11 +17,13 @@ namespace AzureNeuralVoice
         {
            if (e.KeyCode == Keys.Enter)
             {
+                var textToSpeak = txtContent.Text;
                 Task.Run(async () =>
                 {
-                    await Speak(txtContent.Text, Properties.Settings.Default.AudioDeviceId);
+                    await Speak(textToSpeak, Properties.Settings.Default.AudioDeviceId);
                 });
                 e.Handled = true;
+                e.SuppressKeyPress = true;
                 if (!e.Shift)
                 {
                     txtContent.Text = "";
