@@ -1,5 +1,6 @@
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
+using System.Runtime.InteropServices;
 
 
 namespace AzureNeuralVoice
@@ -11,11 +12,37 @@ namespace AzureNeuralVoice
             InitializeComponent();
             Load += Form1_Load;
             txtContent.KeyDown += TxtContent_KeyDown;
+            Resize += Form1_Resize;
+        }
+
+        private void ShowWindow()
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            this.Show();
+            SetForegroundWindow(this.Handle);
+            this.Activate();
+            this.BringToFront();
+            txtContent.Focus();
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
+        private void Form1_Resize(object? sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+            }
         }
 
         private void TxtContent_KeyDown(object? sender, KeyEventArgs e)
         {
-           if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 var textToSpeak = txtContent.Text;
                 Task.Run(async () =>
@@ -79,11 +106,13 @@ namespace AzureNeuralVoice
             {
                 MessageBox.Show("Must provide Subscription Key in settings. Get this from Azure speech studio or azure portal.", "Subscription Key", MessageBoxButtons.OK);
                 return;
-            } else if (String.IsNullOrEmpty(Properties.Settings.Default.VoiceRegion))
+            }
+            else if (String.IsNullOrEmpty(Properties.Settings.Default.VoiceRegion))
             {
                 MessageBox.Show("Must provide Azure Region. This is \"westus2\" for example. Must match your speech resource.", "Voice Region", MessageBoxButtons.OK);
                 return;
-            } else if (String.IsNullOrEmpty(Properties.Settings.Default.AudioDeviceId))
+            }
+            else if (String.IsNullOrEmpty(Properties.Settings.Default.AudioDeviceId))
             {
                 MessageBox.Show("Must set audio device for output in settings", "Audio Device", MessageBoxButtons.OK);
                 return;
@@ -98,6 +127,21 @@ namespace AzureNeuralVoice
         {
             Settings settings = new Settings();
             settings.ShowDialog();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.ShowWindow();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ShowWindow();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
