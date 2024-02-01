@@ -45,7 +45,7 @@ namespace AzureNeuralVoice
             AudioConfig audioConfig = AudioConfig.FromSpeakerOutput(selectedDeviceId);
             var config = SpeechConfig.FromSubscription(Properties.Settings.Default.SubscriptionKey, Properties.Settings.Default.VoiceRegion);
             // Note: the voice setting will not overwrite the voice element in input SSML.
-            config.SpeechSynthesisVoiceName = "en-US-JennyNeural";
+            config.SpeechSynthesisVoiceName = Properties.Settings.Default.VoiceName;
 
             // use the default speaker as audio output.
             using (var synthesizer = new SpeechSynthesizer(config, audioConfig))
@@ -75,6 +75,19 @@ namespace AzureNeuralVoice
 
         private void btnSpeak_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(Properties.Settings.Default.SubscriptionKey))
+            {
+                MessageBox.Show("Must provide Subscription Key in settings. Get this from Azure speech studio or azure portal.", "Subscription Key", MessageBoxButtons.OK);
+                return;
+            } else if (String.IsNullOrEmpty(Properties.Settings.Default.VoiceRegion))
+            {
+                MessageBox.Show("Must provide Azure Region. This is \"westus2\" for example. Must match your speech resource.", "Voice Region", MessageBoxButtons.OK);
+                return;
+            } else if (String.IsNullOrEmpty(Properties.Settings.Default.AudioDeviceId))
+            {
+                MessageBox.Show("Must set audio device for output in settings", "Audio Device", MessageBoxButtons.OK);
+                return;
+            }
             Task.Run(async () =>
             {
                 await Speak(txtContent.Text, Properties.Settings.Default.AudioDeviceId);

@@ -62,6 +62,20 @@ namespace AzureNeuralVoice
             SelectDeviceInListBox(selectedDeviceText);
             txtSubscriptionKey.Text = Properties.Settings.Default.SubscriptionKey;
             txtAzureRegion.Text = Properties.Settings.Default.VoiceRegion;
+            txtVoiceName.Text = Properties.Settings.Default.VoiceName;
+            // set up defaults
+            if (String.IsNullOrEmpty(txtAzureRegion.Text))
+            {
+                txtAzureRegion.Text = "westus2";
+                Properties.Settings.Default.VoiceRegion = txtAzureRegion.Text;
+                Properties.Settings.Default.Save();
+            }
+            if (String.IsNullOrEmpty(txtVoiceName.Text))
+            {
+                txtVoiceName.Text = "en-US-JennyNeural";
+                Properties.Settings.Default.VoiceName = txtVoiceName.Text;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void cmbAudioDevice_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,6 +101,12 @@ namespace AzureNeuralVoice
         private void txtAzureRegion_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.VoiceRegion = txtAzureRegion.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void txtVoiceName_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.VoiceName = txtVoiceName.Text;
             Properties.Settings.Default.Save();
         }
     }

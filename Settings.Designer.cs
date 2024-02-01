@@ -34,6 +34,8 @@
             txtSubscriptionKey = new TextBox();
             txtAzureRegion = new TextBox();
             lblAzureRegion = new Label();
+            txtVoiceName = new TextBox();
+            lblVoiceName = new Label();
             SuspendLayout();
             // 
             // lblAudioDevice
@@ -88,19 +90,42 @@
             lblAzureRegion.TabIndex = 6;
             lblAzureRegion.Text = "Azure Region:";
             // 
+            // txtVoiceName
+            // 
+            txtVoiceName.Location = new Point(220, 142);
+            txtVoiceName.Name = "txtVoiceName";
+            txtVoiceName.Size = new Size(568, 39);
+            txtVoiceName.TabIndex = 9;
+            txtVoiceName.TextChanged += txtVoiceName_TextChanged;
+            // 
+            // lblVoiceName
+            // 
+            lblVoiceName.AutoSize = true;
+            lblVoiceName.Location = new Point(62, 145);
+            lblVoiceName.Name = "lblVoiceName";
+            lblVoiceName.Size = new Size(147, 32);
+            lblVoiceName.TabIndex = 8;
+            lblVoiceName.Text = "Voice Name:";
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 154);
+            ClientSize = new Size(800, 198);
+            Controls.Add(txtVoiceName);
+            Controls.Add(lblVoiceName);
             Controls.Add(txtAzureRegion);
             Controls.Add(lblAzureRegion);
             Controls.Add(txtSubscriptionKey);
             Controls.Add(lblSubscriptionKey);
             Controls.Add(lblAudioDevice);
             Controls.Add(cmbAudioDevice);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Settings";
             Text = "Settings";
+            TopMost = true;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -113,5 +138,7 @@
         private TextBox txtSubscriptionKey;
         private TextBox txtAzureRegion;
         private Label lblAzureRegion;
+        private TextBox txtVoiceName;
+        private Label lblVoiceName;
     }
 }
