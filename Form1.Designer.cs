@@ -40,7 +40,7 @@
             txtContent.Name = "txtContent";
             txtContent.PlaceholderText = "Type your text and press enter or click Speak";
             txtContent.Size = new Size(774, 328);
-            txtContent.TabIndex = 2;
+            txtContent.TabIndex = 0;
             // 
             // btnSpeak
             // 
@@ -70,6 +70,7 @@
             Controls.Add(button1);
             Controls.Add(btnSpeak);
             Controls.Add(txtContent);
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Azure Text to Speech";
             ResumeLayout(false);
