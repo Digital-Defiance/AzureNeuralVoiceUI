@@ -7,6 +7,8 @@ namespace AzureNeuralVoice
 {
     public partial class Form1 : Form
     {
+        const int SW_RESTORE = 9;  // Command to restore the window
+
         public Form1()
         {
             InitializeComponent();
@@ -17,20 +19,29 @@ namespace AzureNeuralVoice
 
         private void ShowWindow()
         {
+            // Make sure the window is not minimized
             if (this.WindowState == FormWindowState.Minimized)
             {
-                this.WindowState = FormWindowState.Normal;
+                ShowWindow(this.Handle, SW_RESTORE);
             }
+
+            // Show the window (in case it was hidden) and bring it to front
             this.Show();
-            SetForegroundWindow(this.Handle);
-            this.Activate();
             this.BringToFront();
+
+            // Set the window to be the foreground window
+            SetForegroundWindow(this.Handle);
+
+            // Optionally, activate the window and focus on a specific control
+            this.Activate();
             txtContent.Focus();
         }
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         private void Form1_Resize(object? sender, EventArgs e)
         {
