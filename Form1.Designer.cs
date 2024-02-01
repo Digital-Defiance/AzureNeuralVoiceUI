@@ -38,6 +38,7 @@
             txtContent.Location = new Point(12, 12);
             txtContent.Multiline = true;
             txtContent.Name = "txtContent";
+            txtContent.PlaceholderText = "Type your text and press enter or click Speak";
             txtContent.Size = new Size(774, 328);
             txtContent.TabIndex = 2;
             // 
