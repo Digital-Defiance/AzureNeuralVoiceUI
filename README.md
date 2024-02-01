@@ -26,4 +26,6 @@ From there, you should be able to just close the settings- they will save automa
 
 Next you should be able to type into the box and press enter to hear your speech, or click the Speak button.
 
-Shift+Enter will prevent the text from clearing itself.  
+Shift+Enter will prevent the text from clearing itself.
+
+The application is also resident in the task bar. Right click it and select "Open" or "Exit". "Open" will bring the application back to the foreground and prepare it for text input into the box. You should be able to immediately start typing, press enter, and have your speech heard.
